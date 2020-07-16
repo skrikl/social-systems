@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "social-systems"
+    }
+  },
+  "defaultProject": "social-systems",
+  "cli": {
+    "analytics": false
+  }
 }

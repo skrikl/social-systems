@@ -1,0 +1,73 @@
+.order {
+    background-color: white;
+    border-radius: 20px;
+    cursor: default;
+    &__head {
+        display: flex;
+        padding: 20px;
+        border-bottom: 1px solid lightgray;
+        &-img {
+            width: 50px;
+            height: 50px;
+            background-color: lightpink;
+            border-radius: 6px;
+            margin-right: 20px;
+        }
+        &-description {
+            display: flex;
+            flex-direction: column;
+        }
+        &-username {
+            font-family: 'Rubik', sans-serif;
+            font-size: 20px;
+            line-height: 24px;
+            color: #464646;
+            margin-bottom: 0.2rem;
+        }
+        &-socialtype {
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            line-height: 22px;
+            color: #439DD5;
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+    }
+    &__item{
+        display: flex;
+        padding: 20px;
+        border-bottom: 1px solid lightgray;
+        &:last-child{
+            border-bottom: 0;
+        }
+        &-img {
+            width: 50px;
+            height: 50px;
+            background-color: lightpink;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        &-productname{
+            font-family: 'Rubik', sans-serif;
+            font-size: 16px;
+            line-height: 19px;
+            color: #999999;
+            margin-bottom: 0.2rem;
+        }
+        &-status{
+            font-family: 'Rubik', sans-serif;
+            font-size: 16px;
+            line-height: 19px;
+            color: #464646;
+            margin-bottom: 0;
+        }
+        &-control{
+            margin-left: auto;
+            background-image: url("../../assets/icons/menu.svg");
+            background-repeat: no-repeat;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    }
+}
