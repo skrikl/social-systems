@@ -14,10 +14,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                Укажите ссылку на то, что хотите раскрутить
+                <span class="modal-body-header">
+                    Укажите ссылку на то, что хотите раскрутить
+                </span>
+                <div class=modal-link>
+                    <img class="order__head-img" [src]="getSocialIcon(orderSource)" *ngIf="orderSource">
+                    <input type="text" placeholder="Введите ссылку" [(ngModel)]="requestedURL" >
+                </div>
+                <span class="error" *ngIf="!isRequestedURLValid() && showError">Некорректная ссылка</span>
+
+                <div class="modal-services" *ngIf="orderSource">{{orderSource || TEST}}</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-app-secondary" data-dismiss="modal" disabled>Закрыть</button>
+                <span class="modal-total">Итого: <span class="price">0 руб.</span></span>
+                <button type="button" class="btn btn-app-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-app-primary" (click)="handleClick()">Добавить</button>
             </div>
         </div>
