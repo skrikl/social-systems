@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -10,12 +10,18 @@ export class AddOrderComponent implements OnInit {
   requestedURL: string;
   showError = false;
   newOrder: any;
+  @ViewChild('close') close;
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
   }
 
   handleClick(): void {
+    if (this.newOrder) {
+      // this.addOrder();
+      this.closeModal();
+      return;
+    }
     const product = this.validateURL();
     if (product.error) {
       this.showError = true;
@@ -32,7 +38,8 @@ export class AddOrderComponent implements OnInit {
             type: this.getProductType(product),
             avatar: user.picture.thumbnail
           },
-          services: [
+          vendorLogo: product.vendorLogo,
+          services: product.post ? [
             {
               name: 'Лайки',
               icon: '../assets/icons/like.svg',
@@ -42,6 +49,13 @@ export class AddOrderComponent implements OnInit {
             {
               name: 'Репосты',
               icon: '../assets/icons/repost.svg',
+              currentValue: 0,
+              total: 0
+            }
+          ] : [
+            {
+              name: 'Подписчики',
+              icon: '../assets/icons/subscribe.svg',
               currentValue: 0,
               total: 0
             }
@@ -55,33 +69,46 @@ export class AddOrderComponent implements OnInit {
     }
   }
 
+  handleCancel(): void {
+    delete this.newOrder;
+    this.requestedURL = '';
+  }
+
   getProductType(product): string {
     return `${product.post ? 'Пост' : 'Аккаунт'} ${product.vendor}`;
   }
 
-  validateURL(): {vendor: string; post: boolean; error: boolean} {
+  closeModal() {
+    this.close.nativeElement.click();
+  }
+
+  validateURL(): {vendor: string; vendorLogo: string, post: boolean; error: boolean} {
     switch (true) {
       case (this.requestedURL && this.requestedURL.indexOf('vk.com') !== -1):
         return {
           vendor: 'Вконтакте',
+          vendorLogo: '../assets/icons/vk.svg',
           post: this.requestedURL.indexOf('post') !== -1 ? true : false,
           error: false
         };
       case (this.requestedURL && this.requestedURL.indexOf('twitter.com') !== -1):
         return {
           vendor: 'Твиттер',
+          vendorLogo: '../assets/icons/twitter.svg',
           post: this.requestedURL.indexOf('post') !== -1 ? true : false,
           error: false
         };
       case (this.requestedURL && this.requestedURL.indexOf('instagram.com') !== -1):
         return {
           vendor: 'Инстаграм',
+          vendorLogo: '../assets/icons/instagram.svg',
           post: this.requestedURL.indexOf('post') !== -1 ? true : false,
           error: false
         };
     }
     return {
       vendor: '',
+      vendorLogo: '',
       post: false,
       error: true
     };

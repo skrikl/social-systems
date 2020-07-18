@@ -23,6 +23,8 @@
     padding: 1rem 0;
 
     .modal__header {
+        display: flex;
+        justify-content: space-between;
         .modal__header-title{
             font-family: 'Rubik', sans-serif;
             font-style: normal;
@@ -34,10 +36,11 @@
             width: 100%;
         }
         button.close{
-            padding: 0.2rem;
-            padding-right: 0.4rem;
             color: #D8D8D8;
             font-weight: 100;
+            position: absolute;
+            top: 0.2rem;
+            right: 0.4rem;
         }
     }
     .modal__body {
@@ -100,6 +103,7 @@
                     display: flex;
                     align-items: center;
                     width: 100%;
+                    position: relative;
                 }
                 &-productname{
                     font-family: 'Rubik', sans-serif;
@@ -107,7 +111,7 @@
                     line-height: 19px;
                     color: #999999;
                     margin-bottom: 0.2rem;
-                    flex-basis: 80px;
+                    flex-basis: 100px;
                 }
                 &-productcount {
                     border: 2px solid #ECECEC;
@@ -127,6 +131,16 @@
                         -webkit-appearance: none;
                         margin: 0;
                     }
+                }
+                &-price {
+                    position: absolute;
+                    top: 1rem;
+                    right: 1rem;
+                    font-family: 'Rubik', sans-serif;
+                    font-size: 16px;
+                    line-height: 19px;
+                    text-align: right;
+                    color: #999999;
                 }
 
             }

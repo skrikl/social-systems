@@ -9,7 +9,7 @@
         <div class="modal-content">
             <div class="modal__header">
                 <h5 class="modal__header-title" id="exampleModalLongTitle">Оформление заказа</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" #close data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -18,7 +18,7 @@
                     Укажите ссылку на то, что хотите раскрутить
                 </span>
                 <div class=modal__body-input>
-                    <img [src]="newOrder.user.avatar" *ngIf="newOrder">
+                    <img [src]="newOrder.vendorLogo" *ngIf="newOrder">
                     <input type="text" placeholder="Введите ссылку" [(ngModel)]="requestedURL" (input)="showError = false">
                 </div>
                 <span class="error" *ngIf="showError">Некорректная ссылка</span>
@@ -28,7 +28,8 @@
                         <img class="service__item-img" [src]="service.icon">
                         <div class="service__item-description">
                             <p class="service__item-productname">{{service.name}}</p>
-                            <input type="number" class="service__item-productcount" [(ngModel)]="service.total">
+                            <input type="number" class="service__item-productcount" [(ngModel)]="service.total" (click)="$event.target.select()">
+                            <span class="service__item-price">{{(service.total * 0.4).toFixed(2)}} ₽</span>
                         </div>
                     </div>
 
@@ -36,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <span class="modal-total">Итого: <span class="price">0 руб.</span></span>
-                <button type="button" class="btn btn-app-secondary" data-dismiss="modal" >Закрыть</button>
+                <button type="button" class="btn btn-app-secondary" data-dismiss="modal" (click)=handleCancel()>Закрыть</button>
                 <button type="button" [disabled]="!requestedURL" class="btn btn-app-primary" (click)="handleClick()" >Добавить</button>
             </div>
         </div>
