@@ -10,9 +10,11 @@ export class AppComponent implements OnInit {
   title = 'social-systems';
   data = [
     {
-      name: 'Андрей Иванович',
-      type: 'Пост Инстаграм',
-      avatar: '../assets/img/avatar1.jpg',
+      user: {
+        name: 'Андрей Иванович',
+        type: 'Пост Инстаграм',
+        avatar: '../assets/img/avatar1.jpg'
+      },
       services: [
         {
           name: 'Лайки',
@@ -29,9 +31,11 @@ export class AppComponent implements OnInit {
       ]
     },
     {
-      name: 'Дмитрий Головаев',
-      type: 'Аккаунт Инстаграм',
-      avatar: '../assets/img/avatar2.jpg',
+      user: {
+        name: 'Дмитрий Головаев',
+        type: 'Аккаунт Инстаграм',
+        avatar: '../assets/img/avatar2.jpg'
+      },
       services: [
         {
           name: 'Подписчики',
