@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from './services/local-storage.service';
 // import { data } from '../assets/data/model';
 
 @Component({
@@ -8,45 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'social-systems';
-  data = [
-    {
-      user: {
-        name: 'Андрей Иванович',
-        type: 'Пост Инстаграм',
-        avatar: '../assets/img/avatar1.jpg'
-      },
-      services: [
-        {
-          name: 'Лайки',
-          icon: '../assets/icons/like.svg',
-          currentValue: 10000,
-          total: 20000
-        },
-        {
-          name: 'Репосты',
-          icon: '../assets/icons/repost.svg',
-          currentValue: 10000,
-          total: 15000
-        }
-      ]
-    },
-    {
-      user: {
-        name: 'Дмитрий Головаев',
-        type: 'Аккаунт Инстаграм',
-        avatar: '../assets/img/avatar2.jpg'
-      },
-      services: [
-        {
-          name: 'Подписчики',
-          icon: '../assets/icons/subscribe.svg',
-          currentValue: 0,
-          total: 20000
-        }
-      ]
-    }
-  ];
+  orders: Order[];
+
+  constructor(private localStorage: LocalStorageService) {}
+
   ngOnInit(): void {
-    console.log('Initial data', this.data);
+    const initialData = this.localStorage.loadInitialState();
+    if (initialData) {
+      this.orders = initialData;
+      console.log(111, this.orders);
+    } else {
+      this.orders = [];
+      console.log(222, this.orders);
+    }
   }
+
+  updateState(): void {
+    this.orders = this.localStorage.loadInitialState();
+  }
+}
+
+export class Order {
+  user: {
+    name: string;
+    type: string;
+    avatar: string;
+  };
+  services: Service[];
+}
+class Service {
+  name: string;
+  icon: string;
+  currentValue: number;
+  total: number;
 }

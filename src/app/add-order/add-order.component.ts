@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { UsersService } from '../services/users.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-add-order',
@@ -11,14 +12,17 @@ export class AddOrderComponent implements OnInit {
   showError = false;
   newOrder: any;
   @ViewChild('close') close;
-  constructor(private usersService: UsersService) { }
+  @Output() ordersChanged = new EventEmitter();
+  constructor(private usersService: UsersService, private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
   }
 
   handleClick(): void {
     if (this.newOrder) {
-      // this.addOrder();
+      this.addOrder();
+      this.ordersChanged.emit();
+      this.resetForm();
       this.closeModal();
       return;
     }
@@ -70,8 +74,7 @@ export class AddOrderComponent implements OnInit {
   }
 
   handleCancel(): void {
-    delete this.newOrder;
-    this.requestedURL = '';
+    this.resetForm();
   }
 
   getProductType(product): string {
@@ -125,16 +128,17 @@ export class AddOrderComponent implements OnInit {
     }
   }
 
-  getUser(requestedURL): any {
-   
-  //   fetch('https://randomuser.me/api/')
-  // .then(response => response.json())
-  // .then(data => console.log(data));
-    // const userNames = ['User1', 'User2', 'User3', 'User4', 'User5'];
-    return {
-      name: 'User1',
-      type: 'Type1',
-      avatar: 'https://randomuser.me/api/portraits/men/21.jpg',
-    };
+  addOrder(): void {
+    let state = this.localStorage.loadInitialState();
+    if (!state) {
+      state = [];
+    }
+    state.push(this.newOrder);
+    this.localStorage.setItem('orders', state);
+  }
+
+  resetForm(): void {
+    this.requestedURL = '';
+    delete this.newOrder;
   }
 }
