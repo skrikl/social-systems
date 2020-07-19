@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './services/local-storage.service';
-// import { data } from '../assets/data/model';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +16,8 @@ export class AppComponent implements OnInit {
     const initialData = this.localStorage.loadInitialState();
     if (initialData) {
       this.orders = initialData;
-      console.log(111, this.orders);
     } else {
       this.orders = [];
-      console.log(222, this.orders);
     }
   }
 

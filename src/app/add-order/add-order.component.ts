@@ -35,7 +35,6 @@ export class AddOrderComponent implements OnInit {
       this.usersService.getUserInfo()
       .subscribe (response => {
         const user = response.results[0];
-        console.log('getUserInfo response', user);
         this.newOrder = {
           user: {
             name: `${user.name.first} ${user.name.last }`,
@@ -65,10 +64,6 @@ export class AddOrderComponent implements OnInit {
             }
           ]
         };
-        console.log('newOrder ', this.newOrder);
-        // Parse user data
-        // Pass user object to template
-        // Display
       });
     }
   }
